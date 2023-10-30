@@ -1,34 +1,43 @@
-console.log('Test One')
+// Create the variables based off of what we need to get from the API
 const cryptoDropdown = document.getElementById('crypto-dropdown');
 const cryptoName = document.getElementById('name');
 const cryptoSymbol = document.getElementById('symbol');
 const cryptoSupply = document.getElementById('supply');
 const cryptoPrice = document.getElementById('priceUsd');
 const cryptoPercentChange = document.getElementById('changePercent24Hr');
+// This was done bc was initially running into an issue where the JavaScript would load before
+// DOM and would then return null for the drop down menu
+
 
 document.addEventListener('DOMContentLoaded', function() {
     function getCryptoData() {
+        // Fetch data from API
         fetch('https://api.coincap.io/v2/assets')
         .then(response => response.json() )
         .then(data => {
             const crypto = data.data;
-    
+            
+            // Get the names of the cryptocurrencies and add them to the drop-down menu
             crypto.forEach(cryptoCurr => {
                 const option = document.createElement('option');
                 option.value = cryptoCurr.id;
                 option.text = cryptoCurr.name;
                 cryptoDropdown.appendChild(option);
             });
-    
+
+            //Based on which crypto currency you choose fill out section two with required data
             cryptoDropdown.addEventListener('change', () => {
                 const selectedCryptoID = cryptoDropdown.value;
                 const selectedCrypto = crypto.find(cryptoCurr => cryptoCurr.id === selectedCryptoID);
-    
+                
+                // Get the name symbol and supply of the cryptocurrency selected
                 if (selectedCrypto) {
                     cryptoName.textContent = selectedCrypto.name;
                     cryptoSymbol.textContent = selectedCrypto.symbol;
                     cryptoSupply.textContent = Math.round(selectedCrypto.supply);
                     
+                    // Since we had to fix to two decimal values we had to change the data from string to float
+                    // For both the price and the % it changed over the last 24 hours
                     const priceUsd = parseFloat(selectedCrypto.priceUsd);
                     if (!isNaN(priceUsd)) {
                         cryptoPrice.textContent = priceUsd.toFixed(2);
@@ -47,11 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         })
-        .catch(error => {
-            console.error('There is an error fetching the data', error);
-        });
     }
-    // Hello
     getCryptoData(); 
 });
 
