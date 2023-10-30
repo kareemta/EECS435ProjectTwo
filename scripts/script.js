@@ -28,7 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
             //Event listener for when a cryptocurrency is chosen from drop-down menu
             cryptoDropdown.addEventListener('change', () => {
                 const selectedCryptoID = cryptoDropdown.value;
-                const selectedCrypto = crypto.find(cryptoCurr => cryptoCurr.id === selectedCryptoID);
+                const selectedCrypto = crypto.find(cryptoCurr => {
+                    // Check if current crypto ID match selected one
+                    if (cryptoCurr.id === selectedCryptoID) {
+                        return true;
+                    }
+                    return false;
+                });
                 
                 // Get the name symbol and supply of the cryptocurrency selected
                 if (selectedCrypto) {
