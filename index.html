@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Price Info</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Crypto Prices</h1>
+    </header>
+    
+    <main>
+        <section id="crypto-selector">
+            <label for="crypto-dropdown">Choose a Cryptocurrency</label>
+            <select id="crypto-dropdown"></select>
+        </section>
+        <section id="crypto-info">
+            <h2 id="name"></h2>
+            <p>Symbol: <span id="symbol"></span></p>
+            <p>Supply: <span id="supply"></span></p>
+            <p>Price: <span id="priceUsd"></span></p>
+            <p>24 Hour % Change: <span id="changePercent24Hr"></span></p>
+        </section>
+
+        
+    </main>
+    <script src="scripts/script.js"></script>
+</body>
+</html>
