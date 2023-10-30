@@ -1,14 +1,14 @@
-// Create the variables based off of what we need to get from the API
+// Select elements that we want to do display on the page
 const cryptoDropdown = document.getElementById('crypto-dropdown');
 const cryptoName = document.getElementById('name');
 const cryptoSymbol = document.getElementById('symbol');
 const cryptoSupply = document.getElementById('supply');
 const cryptoPrice = document.getElementById('priceUsd');
 const cryptoPercentChange = document.getElementById('changePercent24Hr');
+
 // This was done bc was initially running into an issue where the JavaScript would load before
 // DOM and would then return null for the drop down menu
-
-
+// Ensures DOM is fully loaded before the script runs
 document.addEventListener('DOMContentLoaded', function() {
     function getCryptoData() {
         // Fetch data from API
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 cryptoDropdown.appendChild(option);
             });
 
-            //Based on which crypto currency you choose fill out section two with required data
+            //Event listener for when a cryptocurrency is chosen from drop-down menu
             cryptoDropdown.addEventListener('change', () => {
                 const selectedCryptoID = cryptoDropdown.value;
                 const selectedCrypto = crypto.find(cryptoCurr => cryptoCurr.id === selectedCryptoID);
@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Since we had to fix to two decimal values we had to change the data from string to float
                     // For both the price and the % it changed over the last 24 hours
+                    // We hae to convert into a float
                     const priceUsd = parseFloat(selectedCrypto.priceUsd);
                     if (!isNaN(priceUsd)) {
                         cryptoPrice.textContent = priceUsd.toFixed(2);
